@@ -26,3 +26,6 @@ client/yarn-error.log*
 # lock
 client/package-lock.json
 server/package-lock.json
+
+# database
+server/db
