@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: cards_memory
+      MYSQL_ROOT_PASSWORD: root # need to change
+      MYSQL_USER: user # need to change
+      MYSQL_PASSWORD: password # need to change
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./server/db:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+
+volumes:
+  db:
