@@ -4,7 +4,7 @@ export class createTables1637944126018 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE Role
+            CREATE TABLE user_role
             (
                 code    varchar(64),
                 label   varchar(64) NOT NULL,
@@ -13,36 +13,36 @@ export class createTables1637944126018 implements MigrationInterface {
             );
         `);
         await queryRunner.query(`
-            CREATE TABLE User
+            CREATE TABLE user
             (
                 id                                          int AUTO_INCREMENT,
-                first_name                                  varchar(64),
-                last_name                                   varchar(64),
-                email                                       varchar(256) NOT NULL,
+                first_name                                   varchar(64),
+                last_name                                    varchar(64),
+                email                                       varchar(256) NOT NULL UNIQUE,
                 password                                    varchar(256) NOT NULL,
-                reset_password_link                         varchar(256),
-                reset_password_link_expiration_timestamp    int,
-                picture_name                                varchar(256),
-                average_answer_time_in_seconds              int,
-                role_code                                   varchar(64),
+                reset_password_link                           varchar(256),
+                reset_password_link_expiration_timestamp        int,
+                picture_name                                 varchar(256),
+                average_answer_time_in_seconds                  int,
+                user_role_code                                varchar(64),
 
                 PRIMARY KEY (id),
-                FOREIGN KEY (role_code) REFERENCES Role(code)
+                FOREIGN KEY (user_role_code) REFERENCES user_role(code)
             );
         `);
         await queryRunner.query(`
-            CREATE TABLE Deck
+            CREATE TABLE deck
             (
                 id		int AUTO_INCREMENT,
                 name	varchar(256) NOT NULL,
                 user_id	int,
                 
                 PRIMARY KEY(id),
-                FOREIGN KEY(user_id) REFERENCES User(id)
+                FOREIGN KEY(user_id) REFERENCES user(id)
             );
         `)
         await queryRunner.query(`
-            CREATE TABLE Card
+            CREATE TABLE card
             (
                 id		int AUTO_INCREMENT,
                 name	varchar(256) NOT NULL,
@@ -50,11 +50,11 @@ export class createTables1637944126018 implements MigrationInterface {
                 deck_id	int,
                 
                 PRIMARY KEY(id),
-                FOREIGN KEY(deck_id) REFERENCES Deck(id)
+                FOREIGN KEY(deck_id) REFERENCES deck(id)
             );
         `)
         await queryRunner.query(`
-            CREATE TABLE AnswerCategory
+            CREATE TABLE answer_category
             (
                 code	varchar(64),
                 label	varchar(256) NOT NULL,
@@ -63,7 +63,7 @@ export class createTables1637944126018 implements MigrationInterface {
             );
         `)
         await queryRunner.query(`
-            CREATE TABLE TestCategory
+            CREATE TABLE test_category
             (
                 code	varchar(64),
                 label	varchar(256) NOT NULL,
@@ -72,17 +72,17 @@ export class createTables1637944126018 implements MigrationInterface {
             );
         `)
         await queryRunner.query(`
-            CREATE TABLE Test
+            CREATE TABLE test
             (
                 id					int AUTO_INCREMENT,
                 test_category_code 	varchar(64),
                 
                 PRIMARY KEY(id),
-                FOREIGN KEY(test_category_code) REFERENCES TestCategory(code)
+                FOREIGN KEY(test_category_code) REFERENCES test_category(code)
             );
         `)
         await queryRunner.query(`
-            CREATE TABLE Answer
+            CREATE TABLE answer
             (
                 card_id		            int,
                 test_id		            int,
@@ -91,22 +91,22 @@ export class createTables1637944126018 implements MigrationInterface {
                 
                 PRIMARY KEY(card_id, test_id, answer_category_code),
                 
-                FOREIGN KEY(card_id) REFERENCES Card(id),
-                FOREIGN KEY(test_id) REFERENCES Test(id),
-                FOREIGN KEY(answer_category_code) REFERENCES AnswerCategory(code)
+                FOREIGN KEY(card_id) REFERENCES card(id),
+                FOREIGN KEY(test_id) REFERENCES test(id),
+                FOREIGN KEY(answer_category_code) REFERENCES answer_category(code)
             );
         `)
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE Answer;`);
-        await queryRunner.query(`DROP TABLE Card;`);
-        await queryRunner.query(`DROP TABLE Deck;`);
-        await queryRunner.query(`DROP TABLE User;`);
-        await queryRunner.query(`DROP TABLE Role;`);
-        await queryRunner.query(`DROP TABLE Test;`);
-        await queryRunner.query(`DROP TABLE TestCategory;`);
-        await queryRunner.query(`DROP TABLE AnswerCategory;`);
+        await queryRunner.query(`DROP TABLE answer;`);
+        await queryRunner.query(`DROP TABLE card;`);
+        await queryRunner.query(`DROP TABLE deck;`);
+        await queryRunner.query(`DROP TABLE user;`);
+        await queryRunner.query(`DROP TABLE user_role;`);
+        await queryRunner.query(`DROP TABLE test;`);
+        await queryRunner.query(`DROP TABLE test_category;`);
+        await queryRunner.query(`DROP TABLE answer_category;`);
     }
 
 }
