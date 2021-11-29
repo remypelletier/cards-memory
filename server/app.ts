@@ -1,8 +1,20 @@
-import "reflect-metadata";
-import { createConnection } from "typeorm";
+import express = require('express');
+import bodyParser = require('body-parser');
+import deckRouter from './routes/deck.route';
+import { auth } from "./middlewares/auth.middleware.";
 
-createConnection().then(async connection => {
+const app = express();
 
-    console.log("todo ...");
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-}).catch(error => console.log(error));
+// parse application/json
+app.use(bodyParser.json())
+
+// authentication
+app.use(auth);
+
+// routes
+app.use('/api/decks', deckRouter);
+
+export default app;

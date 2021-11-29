@@ -1,0 +1,173 @@
+{
+    "userRoles": [
+        {
+            "code": "ADMIN",
+            "label": "Administrator"
+        },
+        {
+            "code": "EDITOR",
+            "label": "Editor"
+        },
+        {
+            "code": "USER",
+            "label": "User"
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Rémy",
+            "lastName": "Pelletier",
+            "email": "remypelletier@gmail.com",
+            "password": "password",
+            "userRoleCode": "ADMIN"
+        },
+        {
+            "id": 2,
+            "firstName": "José",
+            "lastName": "Boule",
+            "email": "joseboule@gmail.com",
+            "password": "password",
+            "userRoleCode": "USER"
+        },
+        {
+            "id": 3,
+            "firstName": "Martin",
+            "lastName": "Poire",
+            "email": "martinpoire@gmail.com",
+            "password": "password",
+            "userRoleCode": "USER"
+        }
+    ],
+    "decks": [
+        {
+            "id": 1,
+            "name": "Javascript",
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "name": "React",
+            "user_id": 1
+        },
+        {
+            "id": 3,
+            "name": "Symfony",
+            "user_id": 1
+        },
+        {
+            "id": 4,
+            "name": "Cuisine",
+            "user_id": 3
+        },
+        {
+            "id": 5,
+            "name": "Anglais",
+            "user_id": 3
+        }
+    ],
+    "cards": [
+        {
+            "id": 1,
+            "name": "Comment fonctionne une promise ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Qu'est ce que nodeJS ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 1
+        },
+        {
+            "id": 3,
+            "name": "Comment déclarer une classe ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 1
+        },
+        {
+            "id": 4,
+            "name": "A quoi sert UseSate ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 2
+        },
+        {
+            "id": 5,
+            "name": "A quoi sert ComponentDidMount ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 2
+        },
+        {
+            "id": 6,
+            "name": "Comment faire remonter l'état ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 2
+        },
+        {
+            "id": 7,
+            "name": "A quoi sert une migration ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 3
+        },
+        {
+            "id": 8,
+            "name": "Comment faire un tiramisu ?",
+            "answer": "<p>réponse</p>",
+            "deck_id": 4
+        }
+    ],
+    "answerCategories": [
+        {
+            "code": "GOOD",
+            "label": "Good"
+        },
+        {
+            "code": "ALMOST",
+            "label": "It's almost that"
+        },
+        {
+            "code": "REVIEW",
+            "label": "Need review"
+        },
+        {
+            "code": "NOT_ANSWERED",
+            "label": "Not yet answered"
+        }
+    ],
+    "testCategories": [
+        {
+            "code": "FULL",
+            "label": "Full test"
+        },
+        {
+            "code": "ONLY_NEEDED",
+            "label": "Only needed"
+        }
+    ],
+    "tests": [
+        {
+            "id": 1,
+            "test_category_code": "FULL"
+        }
+    ],
+    "answers": [
+        {
+            "card_id": 1,
+            "test_id": 1,
+            "answer_category_code": "GOOD",
+            "date":  "2021-12-02 14:24:21"
+        },
+        {
+            "card_id": 2,
+            "test_id": 1,
+            "answer_category_code": "GOOD",
+            "date":  "2021-12-02 14:24:58"
+        },
+        {
+            "card_id": 3,
+            "test_id": 1,
+            "answer_category_code": "GOOD",
+            "date":  "2021-12-02 14:25:32"
+        }
+    ]
+}
