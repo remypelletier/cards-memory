@@ -1,12 +1,12 @@
-import { User } from "../../entity/User";
-import { UserRole } from "../../entity/UserRole";
+import User from "../../entities/user.entity";
+import UserRole from "../../entities/userRole.entity";
+import Deck from "../../entities/deck.entity";
+import Card from "../../entities/card.entity";
+import AnswerCategory from "../../entities/answerCategory.entity";
+import TestCategory from "../../entities/testCategory.entity";
+import Answer from "../../entities/answer.entity";
+import Test from "../../entities/test.entity";
 import * as data from "./sampleData.json";
-import { Deck } from "../../entity/Deck";
-import { Card } from "../../entity/Card";
-import { AnswerCategory } from "../../entity/AnswerCategory";
-import { TestCategory } from "../../entity/TestCategory";
-import { Answer } from "../../entity/Answer";
-import { Test } from "../../entity/Test";
 
 export const insertSampleData = async () => {
 

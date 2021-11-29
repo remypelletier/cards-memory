@@ -11,16 +11,16 @@ export default {
    logging: true,
    namingStrategy: new SnakeNamingStrategy(), // use camelcase in code to snakecase in database column
    entities: [
-      "entity/**/*.ts"
+      "entities/**/*.ts"
    ],
    migrations: [
-      "migration/**/*.ts"
+      "migrations/**/*.ts"
    ],
    subscribers: [
       "subscriber/**/*.ts"
    ],
    cli: {
-      entitiesDir: "entity",
+      entitiesDir: "entities",
       migrationsDir: "migration",
       subscribersDir: "subscriber"
    }
