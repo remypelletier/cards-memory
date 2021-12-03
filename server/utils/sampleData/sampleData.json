@@ -126,7 +126,7 @@
             "label": "It's almost that"
         },
         {
-            "code": "REVIEW",
+            "code": "NEED_REVIEW",
             "label": "Need review"
         },
         {
