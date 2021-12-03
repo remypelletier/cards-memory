@@ -5,13 +5,24 @@ import Controller from "../interfaces/controller.interface";
 class DeckController implements Controller {
 
     public static findAll(req, res): void {
-        const filters = Object.entries(req.query);
-        DeckModel.getAll(checkFilters(filters))
-        .then(decks => {
-            res.send(decks);
-        }).catch((e) => {
-            //error
-        })
+        if (req.query.hasOwnProperty('countAnswer')
+            && req.query.countAnswer === 'true'
+            && req.query.hasOwnProperty('userId')) {
+                DeckModel.getAllAnswerCategoryNumberByUserId(req.query.userId)
+                .then(decks => {
+                    res.send(decks);
+                }).catch((e) => {
+                    //error
+                })
+        } else {
+            const filters = Object.entries(req.query);
+            DeckModel.getAll(buildWhereClause(filters))
+            .then(decks => {
+                res.send(decks);
+            }).catch((e) => {
+                //error
+            })
+        }
     }
     public static findOne(req, res): void {
         DeckModel.getOne(req.params.id)
@@ -56,14 +67,14 @@ class DeckController implements Controller {
 
 }
 
-const checkFilters = (filters) => {
+const buildWhereClause = (filters) => {
     const find = {
         where: {
             user: ''
         }
     };
     const validFilters = filters.map((filter) => {
-        if (filter[0] === 'userid') {
+        if (filter[0] === 'userId') {
             find.where.user = filter[1];
             return true;
         }
