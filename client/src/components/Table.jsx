@@ -19,8 +19,8 @@ const Table = (props) => {
     })
 
     return (
-        <div className="overflow-x-auto">
-            <table className="w-full min-w-lg bg-white rounded-xl shadow-md">
+        <div className="overflow-x-auto shadow-md rounded-xl">
+            <table className="w-full min-w-lg bg-white">
                 <thead className="bg-gray-100">
                     <tr>
                         {columnItems}
