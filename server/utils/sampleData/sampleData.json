@@ -126,8 +126,8 @@
             "label": "It's almost that"
         },
         {
-            "code": "NEED_REVIEW",
-            "label": "Need review"
+            "code": "REVIEW_NEEDED",
+            "label": "Review needed"
         },
         {
             "code": "NOT_ANSWERED",
