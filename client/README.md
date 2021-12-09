@@ -1,3 +1,0 @@
-# Client documentation
-
-TODO
