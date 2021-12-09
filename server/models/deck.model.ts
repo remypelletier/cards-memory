@@ -35,13 +35,13 @@ class DeckModel implements Model {
     public static async getAllAnswerCategoryNumberByUserId(id) {
         const entityManager = getManager();
         const deck = entityManager.query(`
-            SELECT deck.name,
+            SELECT deck.id, deck.name,
             COUNT(DISTINCT card.id) as cardNumber,
             COUNT(answer.answer_category_code) as answerNumber,
             COUNT(CASE WHEN answer.answer_category_code = "GOOD" THEN 1 END) AS answerCategoryNumberGood,
             COUNT(CASE WHEN answer.answer_category_code = "ALMOST" THEN 1 END) AS answerCategoryNumberAlmost,
             COUNT(CASE WHEN answer.answer_category_code = "NOT_ANSWERED" THEN 1 END) AS answerCategoryNumberNotAnswered,
-            COUNT(CASE WHEN answer.answer_category_code = "NEED_REVIEW" THEN 1 END) AS answerCategoryNumberNeedReview
+            COUNT(CASE WHEN answer.answer_category_code = "REVIEW_NEEDED" THEN 1 END) AS answerCategoryNumberReviewNeeded
             FROM deck
             LEFT JOIN card on card.deck_id = deck.id
             LEFT JOIN answer on answer.card_id = card.id
@@ -52,19 +52,5 @@ class DeckModel implements Model {
     }
 
 }
-
-/*
-
-select deck.name, COUNT(DISTINCT card.id) as cardNumber, COUNT(answer.answer_category_code) as answerNumber,
-COUNT(CASE WHEN answer.answer_category_code = "GOOD" THEN 1 END) AS answerNumberGood,
-COUNT(CASE WHEN answer.answer_category_code = "ALMOST" THEN 1 END) AS answerNumberAlmost,
-COUNT(CASE WHEN answer.answer_category_code = "NOT_ANSWERED" THEN 1 END) AS answerNumberNotAnswered,
-COUNT(CASE WHEN answer.answer_category_code = "REVIEW" THEN 1 END) AS answerNumberReview
-FROM deck
-LEFT JOIN card on card.deck_id = deck.id
-LEFT JOIN answer on answer.card_id = card.id
-GROUP BY deck.id
-
-*/
 
 export default DeckModel;
