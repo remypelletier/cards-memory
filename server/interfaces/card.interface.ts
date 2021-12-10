@@ -1,10 +1,10 @@
-import Deck from './deck.interface';
+import DeckEntity from '../entities/deck.entity';
 
 interface Card {
-    id: number;
+    id?: number;
     name: string;
     answer: string;
-    deck: Deck;
+    deck?: DeckEntity;
 }
 
 export default Card;
