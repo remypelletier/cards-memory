@@ -2,6 +2,7 @@ import express = require('express');
 import bodyParser = require('body-parser');
 import cors = require('cors');
 import deckRouter from './routes/deck.route';
+import cardRouter from './routes/card.route';
 import { auth } from "./middlewares/auth.middleware.";
 
 const app = express();
@@ -20,5 +21,6 @@ app.use(auth);
 
 // routes
 app.use('/api/decks', deckRouter);
+app.use('/api/cards', cardRouter);
 
 export default app;
