@@ -33,8 +33,8 @@ class CardModel implements Model {
         return await cardToRemove.remove();
     }
     /**
-     * Get all answers number by category
-     * @returns deck
+     * Get all answers by deckId
+     * @returns card
      */
     public static async getAllAnswerByDeckId(id) {
         const entityManager = getManager();
