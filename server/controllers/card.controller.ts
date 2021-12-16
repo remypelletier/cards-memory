@@ -51,7 +51,6 @@ class CardController implements Controller {
             name: req.body.name,
             answer: req.body.answer
         }
-        console.log(card);
         CardModel.patch(card)
         .then(card => {
             res.send(card);

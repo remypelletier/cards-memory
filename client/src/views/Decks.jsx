@@ -80,9 +80,10 @@ const Decks = () => {
                 cardsNumber: deck.cardNumber,
                 successRate: <ProgressBar score={score.getSuccessRate()} />,
                 actions: (<>
-                    <button onClick={() => handleClick.edit(deck)} className="text-indigo-600 mr-3">Edit</button>
-                    <button onClick={() => handleClick.delete(deck)} className="text-red-600">Delete</button>
-                </>)
+                    <button onClick={(e) => handleClick.edit(e, deck)} className="text-indigo-600 mr-3">Edit</button>
+                    <button onClick={(e) => handleClick.delete(e, deck)} className="text-red-600">Delete</button>
+                </>),
+                link: `/decks/${deck.id}/cards`
             });
         })
     }
@@ -97,14 +98,16 @@ const Decks = () => {
         /**
          * open EditForm in modal and update deck with selected deck
          */
-        edit: (deck) => {
+        edit: (e, deck) => {
+            e.stopPropagation();
             setEditDeck(deck);
             setIsEdit(true);
         },
         /**
          * open DeleteForm in modal and update deck with selected deck
          */
-        delete: (deck) => {
+        delete: (e, deck) => {
+            e.stopPropagation();
             setDeleteDeck(deck);
             setIsDelete(true);
         }
@@ -118,10 +121,11 @@ const Decks = () => {
             if (action === 'save') {
                 deck.key = deck.id;
                 deck.cardsNumber = 0;
+                deck.link = `/decks/${deck.id}/cards`;
                 deck.successRate = <ProgressBar score={0} />;
                 deck.actions =(<>
-                    <button onClick={() => handleClick.edit(deck)} className="text-indigo-600 mr-3">Edit</button>
-                    <button onClick={() => handleClick.delete(deck)} className="text-red-600">Delete</button>
+                    <button onClick={(e) => handleClick.edit(e, deck)} className="text-indigo-600 mr-3">Edit</button>
+                    <button onClick={(e) => handleClick.delete(e, deck)} className="text-red-600">Delete</button>
                 </>)
                 setDataSource(dataSource => [...dataSource, deck]);
             }
@@ -131,17 +135,18 @@ const Decks = () => {
          * update deck from database and update it from state
          */
         edit: (deck, action) => {
+            const id = deck.id === undefined ? deck.key : deck.id;
             if (action === 'edit') {
                 const editedDataSource = dataSource.map((data) => {
-                    if (data.key === deck.id) {
+                    if (data.key === id) {
                         data.name = deck.name;
                         data.actions = (<>
-                            <button onClick={() => handleClick.edit(data)} className="text-indigo-600 mr-3">Edit</button>
-                            <button onClick={() => handleClick.delete(data)} className="text-red-600">Delete</button>
-                        </>)
+                            <button onClick={(e) => handleClick.edit(e, data)} className="text-indigo-600 mr-3">Edit</button>
+                            <button onClick={(e) => handleClick.delete(e, data)} className="text-red-600">Delete</button>
+                        </>);
                     }
                     return data;
-                })
+                });
                 setDataSource(editedDataSource);
             }
             setIsEdit(false);
@@ -150,8 +155,9 @@ const Decks = () => {
          * remove deck from database and remove it from state
          */
         delete: (deck, action) => {
+            const id = deck.id === undefined ? deck.key : deck.id;
             if (action === 'delete') {
-                setDataSource(dataSource.filter(data => data.key !== deck.id));
+                setDataSource(dataSource.filter(data => data.key !== id));
             }
             setIsDelete(false);
         }
@@ -219,7 +225,8 @@ const DeleteForm = (props) => {
     const handleClick = (e) => {
         e.preventDefault();
         if (e.target.name === 'confirm') {
-            apiRequest.delete(deck.id)
+            const id = deck.id === undefined ? deck.key : deck.id;
+            apiRequest.delete(id)
             .then((response) => {
                 onSubmit(deck, 'delete');
               })
@@ -245,9 +252,9 @@ const EditForm = (props) => {
     const { onSubmit, deck } = props;
 
     const handleSubmit = (formValues, action) => {
-        
         if (action === 'confirm') {
-            apiRequest.patch(deck.id, {
+            const id = deck.id === undefined ? deck.key : deck.id;
+            apiRequest.patch(id, {
                 name: formValues.name
             }).then((response) => {
                 onSubmit(response.data, 'edit');

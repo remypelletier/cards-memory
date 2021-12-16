@@ -40,9 +40,10 @@ class CardModel implements Model {
         const entityManager = getManager();
         const card = entityManager.query(`
             SELECT card.id, card.name, card.answer, answer.answer_category_code, answer.date FROM card
-            INNER JOIN deck ON card.deck_id = deck.id
-            INNER JOIN answer ON card.id = answer.card_id
+            LEFT JOIN deck ON card.deck_id = deck.id
+            LEFT JOIN answer ON card.id = answer.card_id
             WHERE deck.id = ${id}
+            ORDER BY answer.date DESC;
         `);
         return card;
     }

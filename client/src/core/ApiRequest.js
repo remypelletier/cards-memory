@@ -44,4 +44,35 @@ class DeckRequest extends ApiRequest {
 
 }
 
-export {DeckRequest};
+
+class CardRequest extends ApiRequest {
+
+    endPoint = '/cards';
+
+    constructor(auth) {
+        super();
+        //implement auth if needed
+    }
+
+    getAll(params = false) {
+        if (params === false)
+            return this.instance.get(this.endPoint);
+        return this.instance.get(this.endPoint + this.paramBuilder(params));
+    }
+
+    post(deck) {
+        return this.instance.post(this.endPoint, deck);
+    }
+
+    patch(id, deck) {
+        return this.instance.patch(`${this.endPoint}/${id}`, deck);
+    }
+
+    delete(id) {
+        return this.instance.delete(`${this.endPoint}/${id}`);
+    }
+
+}
+
+
+export { DeckRequest, CardRequest };
