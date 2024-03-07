@@ -1,16 +1,15 @@
-version: '3.1'
+version: "3.1"
 
 services:
-
   db:
     image: mysql
     environment:
-      MYSQL_DATABASE: cards_memory
-      MYSQL_ROOT_PASSWORD: root # need to change
-      MYSQL_USER: user # need to change
-      MYSQL_PASSWORD: password # need to change
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - '3306:3306'
+      - "3306:3306"
     volumes:
       - ./server/db:/var/lib/mysql
 
